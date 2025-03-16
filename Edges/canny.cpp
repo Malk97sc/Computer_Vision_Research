@@ -4,15 +4,15 @@
 using namespace cv;
 using namespace std;
 
-int main(int argc, char **argv) {
-    if (argc < 2) {
-        cerr << "Send image" << endl;
+int main(int argc, char **argv){
+    if(argc < 2){
+        cerr <<"Send image"<< endl;
         return EXIT_FAILURE;
     }
 
     Mat image = imread(argv[1], IMREAD_GRAYSCALE);
-    if (image.empty()) {
-        cerr << "Fail to load image" << endl;
+    if(image.empty()){
+        cerr <<"Fail to load image"<< endl;
         return EXIT_FAILURE;
     }
 
@@ -20,8 +20,8 @@ int main(int argc, char **argv) {
     GaussianBlur(image, blurred, Size(5, 5), 0);
 
     int kernelSize = 3;
-    int lowerThreshold = 50; // Lower threshold for Canny
-    int upperThreshold = 150; // Upper threshold for Canny
+    int lowerThreshold = 50; //lower threshold for Canny
+    int upperThreshold = 150; //upper threshold for Canny
     Mat edges;
     Canny(blurred, edges, lowerThreshold, upperThreshold, kernelSize);
 

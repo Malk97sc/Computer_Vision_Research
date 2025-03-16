@@ -5,14 +5,14 @@ using namespace cv;
 using namespace std;
 
 int main(int argc, char **argv) {
-    if (argc < 2) {
-        cerr << "Send image" << endl;
+    if(argc < 2){
+        cerr <<"Send image"<< endl;
         return EXIT_FAILURE;
     }
 
     Mat image = imread(argv[1]);
-    if (image.empty()) {
-        cerr << "Fail to load image" << endl;
+    if(image.empty()){
+        cerr <<"Fail to load image"<< endl;
         return EXIT_FAILURE;
     }
 

@@ -12,4 +12,20 @@ Run:
 ```bash
 ./cany ../image.jpg
 ```
+
+## Non-OpenCv images
+
+if you want to use this program (Edges folder), you can compile it with this command:
+
+```bash
+gcc sobelwithThreads.c -lm -o sobelThreads.out
+```
+
+To run:
+
+```bash
+./sobelThreads.out 2 ../Eye.ppm
+```
+Note: The first argument is the number of threads, and the second is the image in PPM format.
+
 Note: This has been tested on Linux (Linux Mint XFACE)
