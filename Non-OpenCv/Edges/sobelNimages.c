@@ -13,85 +13,108 @@ typedef struct{
 typedef struct{
     Image *input;
     Image *output;
-    int start, end;
+    int width, height;
 } ThreadData;
 
 Image readImage(const char *file);
 Image toGray(Image img);
 
 void *SobelThread(void *arg);
-Image applySobelFilter(Image img, int numThreads);
+void applySobelFilter(Image *img, Image **edges, int nImages);
 int applySobelKernel(Image *img, int limX, int limY, int *sumX, int *sumY, int dx[][3], int dy[][3]);
 
 void writeImage(const char *file, Image img);
 
 int main(int argc, char **argv){
-    if(argc < 3 || atoi(argv[1]) == 0){
-        perror("Send the number of threads and the image\n");
+    if(argc < 3 ){
+        perror("Send all the images\n");
         return EXIT_FAILURE;
     }
 
-    Image img, gray, edge;
-    int numThreads = atoi(argv[1]);
+    Image *images, *edges;
+    int nImages= argc - 1;
 
-    img = readImage(argv[2]);
-    gray = toGray(img);
-    edge = applySobelFilter(gray, numThreads);
-    writeImage("SobelThreads.pgm", edge);
+    images = (Image*) malloc(nImages * sizeof(Image));
+    if(!images){
+        perror("Memory allocation failed");
+        exit(1);
+    }
 
-    free(img.data);
-    free(gray.data);
-    free(edge.data);
+    for(int i=0; i < nImages; i++){
+        images[i] = readImage(argv[i+1]); //the 2nd argument start
+    }
+
+    applySobelFilter(images, &edges, nImages);
+
+    for(int i=0; i < nImages; i++){
+        char outputFileName[22];
+        sprintf(outputFileName, "image_%d.pgm", i); //change the file name
+        writeImage(outputFileName, edges[i]);
+    }
+
+    for(int i=0; i < nImages; i++){
+        free(images[i].data);
+        free(edges[i].data);
+    }
+    free(images);
+    free(edges);
     return EXIT_SUCCESS;
 }
 
-Image applySobelFilter(Image img, int numThreads){
-    Image edge;
-    edge.width = img.width;
-    edge.height = img.height;
-    edge.data = (unsigned char *)calloc(img.width * img.height, sizeof(unsigned char));
+void applySobelFilter(Image *img, Image **edges, int nImages){
+    *edges = (Image*)malloc(nImages * sizeof(Image)); //to store all sobel images
+    if(!(*edges)){
+        perror("Memory allocation failed");
+        exit(1);
+    }
     
+    for(int i=0; i < nImages; i++){
+        (*edges)[i].width = img[i].width;
+        (*edges)[i].height = img[i].height;
+        (*edges)[i].data = (unsigned char *)calloc(img[i].width * img[i].height, sizeof(unsigned char));
+        if (!(*edges)[i].data) {
+            perror("Memory allocation failed for image data");
+            exit(1);
+        }
+    }
 
-    pthread_t threads[numThreads];
-    ThreadData threadData[numThreads];
-    int delta = img.height / numThreads;
-
-    for(int i=0; i < numThreads; i++){
-        threadData[i].input = &img; //save the image
-        threadData[i].output = &edge;
-        threadData[i].start = i * delta; //rows to start
-        threadData[i].end = (i == numThreads - 1) ? img.height : (i+1)*delta; //rows to end, if is the last element go to height
+    pthread_t threads[nImages];
+    ThreadData threadData[nImages];
+    
+    for(int i=0; i < nImages; i++){
+        threadData[i].input = &img[i];
+        threadData[i].height = img[i].height;
+        threadData[i].width = img[i].width;
+        threadData[i].output = &(*edges)[i];        
         pthread_create(&threads[i], NULL, SobelThread, (void*)&threadData[i]);
     }
 
-    for(int i=0; i < numThreads; i++){
+    for(int i=0; i < nImages; i++){
         pthread_join(threads[i], NULL); //wait all the threads;
     }
-
-    return edge;
 }
 
 void *SobelThread(void *arg){
     ThreadData *data = (ThreadData *)arg;
     Image *img = data->input;
     Image *edge = data->output;
-    int start = data->start, end = data->end;
+    Image gray = toGray(*img);
     
     int sumX, sumY, pixel, magn;
     int Dx[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
     int Dy[3][3] = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
 
-    for(int x = start; x < end; x++){
-        if(x == 0 || x == img->height - 1) continue; //borders of the image
-        for(int y = 1; y < img->width - 1; y++){
+    for(int x=1; x < data->height-1; x++){
+        for(int y=1; y < data->width-1; y++){
             sumX = sumY = 0;
-            pixel = applySobelKernel(img, x, y, &sumX, &sumY, Dx, Dy);
-            magn = (int)sqrt(pow(sumX, 2) + pow(sumY, 2));
-            edge->data[x * img->width + y] = (magn > 255) ? 255 : magn;
+            pixel = applySobelKernel(&gray, x, y, &sumX, &sumY, Dx, Dy);
+            magn = (int)sqrt(sumX*sumX + sumY*sumY);
+            edge->data[x * edge->width + y] = (magn > 255) ? 255 : magn;
         }
     }
-    pthread_exit(NULL);
 
+    free(gray.data); 
+    pthread_exit(NULL);
 }
 
 int applySobelKernel(Image *img, int limX, int limY, int *sumX, int *sumY, int dx[][3], int dy[][3]){

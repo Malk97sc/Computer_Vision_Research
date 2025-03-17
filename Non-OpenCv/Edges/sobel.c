@@ -115,7 +115,7 @@ Image readImage(const char *file){
     return img;
 }
 
-void writeImage(const char *file, Image img) {
+void writeImage(const char *file, Image img){
     FILE *fl = fopen(file, "wb");
     if (!fl) {
         perror("Fail to load image\n");
