@@ -15,7 +15,9 @@ Run:
 
 ## Non-OpenCv images
 
-if you want to use this program (Edges folder), you can compile it with this command:
+To use this content, you need to convert the image to the PPM format. You can use the following link to do this: https://convertio.co/es/jpg-ppm/
+
+To use the program (Edges folder), you can compile it with this command:
 
 ```bash
 gcc sobelwithThreads.c -lm -o sobelThreads.out
