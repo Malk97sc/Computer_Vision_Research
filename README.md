@@ -10,7 +10,7 @@ g++ canny.cpp -o cany `pkg-config --cflags --libs opencv4`
 Run:
 
 ```bash
-./cany ../image.jpg
+./cany ../Data/image.jpg
 ```
 
 ## Non-OpenCv images
@@ -30,4 +30,4 @@ To run:
 ```
 Note: The first argument is the number of threads, and the second is the image in PPM format.
 
-Note: This has been tested on Linux (Linux Mint XFACE).
+Note: This has been tested on Linux (Linux Mint).
