@@ -1,4 +1,4 @@
-# Image Processing in C/C++
+# Image Processing in C/C++/Python
 
 This project demonstrates basic image processing techniques using OpenCV in C++. It includes edge detection, noise reduction, and contour detection.
 
