@@ -20,7 +20,7 @@ The architecture is defined in `SimpleCNN`:
 - **Fully Connected 2**: `64 → 2` (2 output classes)  
 
 
-##  File(s)
+###  Files
 
 | File                | Description                              |
 |---------------------|------------------------------------------|
