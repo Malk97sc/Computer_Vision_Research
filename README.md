@@ -4,8 +4,6 @@ This repository contains a collection of projects and experiments in Image Proce
 
 It covers concepts such as edge detection, denoising, CNN architectures, pooling, upscaling, masking, and object detection.  
 
----
-
 ## Structure
 
 - **Cnn_Architecture/**: CNN building blocks.  
