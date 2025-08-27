@@ -1,33 +1,21 @@
 # Image Processing in C/C++/Python
 
-This project demonstrates basic image processing techniques using OpenCV in C++ and Python. It includes edge detection, noise reduction, contour detection, and other techniques to handly images.
+This repository contains a collection of projects and experiments in Image Processing and Computer Vision, implemented using OpenCV (C++/Python) and also custom implementations without OpenCV in C.  
 
-Use the following command to compile the code:
+It covers concepts such as edge detection, denoising, CNN architectures, pooling, upscaling, masking, and object detection.  
 
-```bash
-g++ canny.cpp -o cany `pkg-config --cflags --libs opencv4`
-```
-Run:
+## Structure
 
-```bash
-./cany ../Data/image.jpg
-```
+- **Cnn_Architecture/**: CNN building blocks.  
+- **Concepts/** → Small examples to learn fundamental concepts.  
+- **Data/** → Images used for testing.  
+- **Denoise/** → Image denoising techniques.  
+- **Edges/** → Edge detection algorithms.  
+- **Mask/** → Image masking and region selection.  
+- **Non-OpenCv/** → Implementations of algorithms without OpenCV using C.  
+- **ObjectDT/** → Object detection examples.  
+- **Pooling/** → Pooling operations.
+- **Upscaling/** → Image upscaling experiments. 
+- **Projects/** → Larger integrated projects combining multiple techniques.  
 
-## Non-OpenCv images
-
-To use this content, you need to convert the image to the PPM format. You can use the following link to do this: https://convertio.co/es/jpg-ppm/
-
-To use the program (Edges folder), you can compile it with this command:
-
-```bash
-gcc sobelwithThreads.c -lm -o sobelThreads.out
-```
-
-To run:
-
-```bash
-./sobelThreads.out 2 ../Eye.ppm
-```
-Note: The first argument is the number of threads, and the second is the image in PPM format.
-
-Note: This has been tested on Linux.
+Note: All examples have been tested on Linux.
