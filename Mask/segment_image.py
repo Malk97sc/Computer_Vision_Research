@@ -1,8 +1,13 @@
 import cv2 as cv
 import numpy as np
 
-def segment_image(img, threshold = 100): #to use this function the image needs to be in gray scale
+def segment_image(img, threshold = 100):
+    if len(img.shape) > 2:
+        img = cv.cvtColor(img, cv.COLOR_BGR2GRAY) 
+    
     height, width = img.shape
+
+
     print(f"Height: {height}, Width: {width}")
     seg_img = np.zeros((height, width))
     area = 0
