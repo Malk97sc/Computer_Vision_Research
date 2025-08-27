@@ -2,3 +2,5 @@ imagesVenv/
 .vscode/
 Upscaling/Model/EDSR_x3.pb
 __pycache__
+full_test.ipynb
+long.ipynb
