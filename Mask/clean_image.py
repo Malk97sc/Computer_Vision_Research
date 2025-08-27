@@ -1,7 +1,10 @@
 import cv2 as cv
 import numpy as np
 
-def clean_image(img): #to use this function the image needs to be in gray scale
+def clean_image(img): 
+    if len(img.shape) > 2:
+        img = cv.cvtColor(img, cv.COLOR_BGR2GRAY) 
+    
     height, width = img.shape
     clean = np.zeros((height, width))
 
