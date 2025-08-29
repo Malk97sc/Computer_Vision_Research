@@ -14,7 +14,7 @@ The core implementation is provided in the `FindContour` class, which includes:
 - **`search_contour()`**: Applies the Moore-Neighbor tracing algorithm to follow the contour until it returns to the starting point.  
 - **`contour2CV()`**: Converts the custom contour representation into an OpenCV-compatible format for visualization.
 
-### File(s)
+### Files
 
 | File                  | Description                                                                 |
 |-----------------------|-----------------------------------------------------------------------------|
