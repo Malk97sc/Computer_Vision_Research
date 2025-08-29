@@ -7,9 +7,8 @@ def segment_image(img, threshold = 100):
     
     height, width = img.shape
 
-
     print(f"Height: {height}, Width: {width}")
-    seg_img = np.zeros((height, width))
+    seg_img = np.zeros((height, width), dtype = np.uint8)
     area = 0
     for i in range(height):
         for j in range (width):
@@ -18,4 +17,4 @@ def segment_image(img, threshold = 100):
                 area += 1
     
     print(f"The area of the image in pixels are: {area}")
-    return np.uint8(seg_img)
+    return seg_img
