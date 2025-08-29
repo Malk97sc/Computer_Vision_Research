@@ -2,3 +2,6 @@ imagesVenv/
 .vscode/
 Upscaling/Model/EDSR_x3.pb
 __pycache__
+__init__.py
+pyproject.toml
+setup.cfg
