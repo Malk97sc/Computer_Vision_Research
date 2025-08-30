@@ -28,8 +28,6 @@ Contours are useful for detecting object boundaries, counting objects, and shape
 | `contours.py`   | Python use of contour detection.         |
 | `countour.jpg`  | Example output showing detected contours.           |
 
----
-
 ## Usage
 
 ### Python
