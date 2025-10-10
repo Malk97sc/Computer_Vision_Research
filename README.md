@@ -6,18 +6,28 @@ It covers concepts such as edge detection, denoising, CNN architectures, pooling
 
 ## Structure
 
-- **Cnn_Architecture/**: CNN building blocks.  
-- **Concepts/**: Small examples to learn fundamental concepts.
-- **Contour/**: Contour detection algorithms.
-- **Data/**: Images used for testing.  
-- **Denoise/**: Image denoising techniques.  
-- **Edges/**: Edge detection algorithms.  
-- **Mask/**: Image masking and region selection.  
-- **Non-OpenCv/**: Implementations of algorithms without OpenCV using C.  
-- **ObjectDT/**: Object detection examples.
-- **Plot/**: Utils functions to show images.
-- **Pooling/**: Pooling operations.
-- **Upscaling/**: Image upscaling experiments.
-- **Projects/**: Larger integrated projects combining multiple techniques.  
+```plaintext
+Image-Processing/
+│── Cnn_Architecture/   # CNN building blocks and experimental architectures
+│── Concepts/           # Foundational examples and learning scripts
+│── Contours/           # Contour and boundary detection algorithms
+│── Data/               # Sample images and datasets for testing
+│── Denoise/            # Image denoising techniques.
+│── Edges/              # Edge detection algorithms.
+│── Images_Course/      # Exercises and materials from the image processing course
+│── Keypoints/          # Feature detection and description.
+│── Mask/               # Image masking and segmentation experiments
+│── Non-OpenCv/         # Pure C implementations without OpenCV
+│── ObjectDT/           # Object detection examples
+│── Padding/            # Image padding and border manipulation
+│── Plot/               # Visualization and plotting utilities
+│── Pooling/            # Pooling and downsampling operations
+│── Projects/           # Integrated projects combining multiple techniques
+│── Upscaling/          # Image upscaling and super-resolution
+│── loadImage.cpp       # Image loading example in C++
+│── pyproject.toml      # Python project configuration
+│── setup.cfg           # Setup configuration file
+│── README.md           # Project documentation
+```
 
 Note: All examples have been tested on Linux.
